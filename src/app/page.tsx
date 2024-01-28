@@ -7,7 +7,9 @@ export default function Home() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const [addedCities, setAddedCities] = useState([{ name: "", date: "" }]);
+  const [addedCities, setAddedCities] = useState([
+    { name: "", dateArrived: "" },
+  ]);
   const [formData, setFormData] = useState<any>({});
 
   const addUserData = async (e: any) => {
@@ -28,12 +30,12 @@ export default function Home() {
     setFirstName("");
     setLastName("");
     setDateOfBirth("");
-    setAddedCities([{ name: "", date: "" }]);
+    setAddedCities([{ name: "", dateArrived: "" }]);
   };
 
   const setCityDate = (date: string, index: number) => {
     const newCities = [...addedCities];
-    newCities[index].date = date;
+    newCities[index].dateArrived = date;
     setAddedCities(newCities);
   };
 
@@ -152,7 +154,7 @@ export default function Home() {
                     type="date"
                     name="first-name"
                     id="first-name"
-                    value={city.date}
+                    value={city.dateArrived}
                     onChange={(e) => setCityDate(e.target.value, index)}
                     placeholder="Eg. John"
                     autoComplete="city-name"
@@ -184,7 +186,7 @@ export default function Home() {
 
               {addedCities?.length > 1 && (
                 <button
-                  onClick={() => removeCity}
+                  onClick={() => removeCity(index)}
                   type="button"
                   className="text-white text-xs absolute top-0 right-0 rounded-full bg-red-500 w-4 flex items-center justify-center h-4"
                 >
@@ -198,7 +200,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() =>
-              setAddedCities([...addedCities, { name: "", date: "" }])
+              setAddedCities([...addedCities, { name: "", dateArrived: "" }])
             }
             className="border mt-3 col-span-2 px-3 py-2 text-sm font-light text-black rounded-md shadow-sm hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
